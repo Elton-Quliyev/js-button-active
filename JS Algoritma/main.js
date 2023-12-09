@@ -1,72 +1,28 @@
-var overlay = document.querySelector(".overlay");
-var modal = document.querySelector(".modal");
-var openBtn = document.querySelector(".btn-open");
-var closeBtn = document.querySelector(".btn-close");
+var slides = document.querySelectorAll(".slide")
+var nextBtn = document.querySelector(".btn-next")
+var prevBtn = document.querySelector(".btn-prev")
 
-var submit = document.querySelector(".submit");     
-var submitOpen = document.querySelector(".submit-open");
-var submitClose = document.querySelector(".submit-close");
-
-function openModal() {
-    modal.classList.remove("hidden")
-    overlay.classList.remove("hidden")
-
-    console.log("open modal")
-
-}
-
-function closeModal() {
-    modal.classList.add("hidden");
-    overlay.classList.add("hidden")
-
-    console.log("Close modal")
-}
-
- overlay.addEventListener("click", closeModal);
- openBtn.addEventListener("click", openModal);
- closeBtn.addEventListener("click", closeModal);
-
-
-////////////////////////////////////////////////////
-
-
-function openSubmit(){
-    submit.classList.remove("hidden");
-    overlay.classList.remove("hidden");
-    modal.classList.add("hidden");
-}
-
-function closeSubmit(){
-    submit.classList.add("hidden");
-    overlay.classList.add("hidden");
-    modal.classList.remove("hidden");
-    overlay.classList.remove("hidden")
-}
-
-submitOpen.addEventListener("click" , openSubmit);
-submitClose.addEventListener("click" , closeSubmit);
-overlay.addEventListener("click" , closeSubmit)
-
-
-
-
-var callOpen = document.querySelector(".call-open")
-function openCall(){
-    alert("145-ə, yəni bankimizin qaynar xəttinə zəng etməyə əminsən?");
-}
-callOpen.addEventListener("click" , openCall)
-
-
-var onlineOpen = document.querySelector(".online-open")
-function openOnline(){
-    alert("bu uje men giren kol deyil");
-}
-onlineOpen.addEventListener("click" , openOnline)
-
-
-document.addEventListener("keydown" , function(event){
-
-    if (event.key === "Escape"){
-        closeModal()
+var currentIndex = 0;
+var maxNumber = slides.length - 1;
+    
+function moveSlide(buttonlar) {
+    if (buttonlar === "next") {
+      currentIndex = currentIndex === maxNumber ? 0 : currentIndex + 1;
+    } else {
+      currentIndex = currentIndex === 0 ? maxNumber : currentIndex - 1;
     }
-})
+  
+    slides.forEach((slide, index) => {
+      slide.style.transform = `translateX(${(index - currentIndex) * 100}%)`;
+    });
+  }
+  
+  nextBtn.addEventListener("click", function () {
+    moveSlide("next");
+  });
+  
+  prevBtn.addEventListener("click", function () {
+    moveSlide("prev");
+  });
+
+
